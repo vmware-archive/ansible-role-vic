@@ -2,61 +2,97 @@
 # SPDX-License-Identifier: MIT
 ---
 - hosts: all
+
+  pre_tasks:
+    - name: Ensure awk is installed
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - openssl
+        - gawk
+
+    # https://storage.googleapis.com/vic-product-ova-dev-builds/vic-v1.1.1-rc2-1f1711a0.ova
+
   roles:
     - role: vic
   vars:
+    password: some_password
+    vic_network_fqdn: vic.home.local
+    vic_network_searchpath: home.local
+    vic_network_dns: 192.168.1.1
+    vic_network_gateway: 192.168.1.254
+    vic_network_netmask0: 255.255.255.0
+    vic_network_ip0: 192.168.1.66
+    vic_permit_root_login: True
+    vic_root_password: "{{ password }}"
+    vic_registry_db_password: "{{ password }}"
+    vic_registry_admin_password: "{{ password }}"
+
+    vic_datastore: "terra disk1"
+    vic_network: "VMNet"
+
+    mgmt_vc_username: administrator@home.local
+    mgmt_vc_password: "{{ password }}"
+    mgmt_vc: 192.168.1.9
+    mgmt_vc_datacenter: Goddard
+    mgmt_vc_cluster: BasementLab
+    image_store: esx-a-ssd
+    vic_download_url: "https://{{ vic_network_ip0 }}:9443/vic_{{ vic_version }}.tar.gz"
+    mgmt_vc_thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+
     vic_controller_hosts:
       - name: test1
         timeout: 5m
-        target: https://192.168.1.9/Goddard
-        user: administrator@home.local
-        password: 'some_password'
+        target: "https://{{ mgmt_vc}}/{{ mgmt_vc_datacenter }}"
+        user: "{{ mgmt_vc_username }}"
+        password: "{{ password }}"
         tls-cname: test1.home.local
-        image-store: esx-a-ssd
+        image-store: "{{ image_store }}"
         bridge-network: bridge-vic1
-        compute-resource: BasementLab
-        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        compute-resource: "{{ mgmt_vc_cluster }}"
+        thumbprint: "{{ mgmt_vc_thumbprint }}"
         bridge-network-range: 172.16.0.0/12
         management-network: Management
         management-network-gateway: 0.0.0.0/0:192.168.1.254
         management-network-ip: 192.168.1.19/24
-        dns-server: 192.168.1.1
-        public-network: VMNet
+        dns-server: "{{ vic_network_dns }}"
+        public-network: "{{ vic_network }}"
         organization: tscanlan
-        volume-store: "esx-a-ssd/test1-volumes:default"
+        volume-store: "{{ image_store }}/test1-volumes:default"
       - name: test2
         timeout: 5m
-        target: https://192.168.1.9/Goddard
-        user: administrator@home.local
-        password: 'some_password'
+        target: "https://{{ mgmt_vc}}/{{ mgmt_vc_datacenter }}"
+        user: "{{ mgmt_vc_username }}"
+        password: "{{ password }}"
         tls-cname: test2.home.local
-        image-store: esx-a-ssd
+        image-store: "{{ image_store }}"
         bridge-network: bridge-vic2
-        compute-resource: BasementLab
-        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        compute-resource: "{{ mgmt_vc_cluster }}"
+        thumbprint: "{{ mgmt_vc_thumbprint }}"
         bridge-network-range: 172.16.0.0/12
         management-network: Management
         management-network-gateway: 0.0.0.0/0:192.168.1.254
         management-network-ip: 192.168.1.20/24
-        dns-server: 192.168.1.1
-        public-network: VMNet
+        dns-server: "{{ vic_network_dns }}"
+        public-network: "{{ vic_network }}"
         organization: tscanlan
-        volume-store: "esx-a-ssd/test2-volumes:default"
+        volume-store: "{{ image_store }}/test2-volumes:default"
       - name: test3
         timeout: 5m
-        target: https://192.168.1.9/Goddard
-        user: administrator@home.local
-        password: 'some_password'
+        target: "https://{{ mgmt_vc}}/{{ mgmt_vc_datacenter }}"
+        user: "{{ mgmt_vc_username }}"
+        password: "{{ password }}"
         tls-cname: test3.home.local
-        image-store: esx-a-ssd
+        image-store: "{{ image_store }}"
         bridge-network: bridge-vic3
-        compute-resource: BasementLab
-        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        compute-resource: "{{ mgmt_vc_cluster }}"
+        thumbprint: "{{ mgmt_vc_thumbprint }}"
         bridge-network-range: 172.16.0.0/12
         management-network: Management
         management-network-gateway: 0.0.0.0/0:192.168.1.254
         management-network-ip: 192.168.1.21/24
-        dns-server: 192.168.1.1
-        public-network: VMNet
+        dns-server: "{{ vic_network_dns }}"
+        public-network: "{{ vic_network }}"
         organization: tscanlan
-        volume-store: "esx-a-ssd/test3-volumes:default"
+        volume-store: "{{ image_store }}/test3-volumes:default"

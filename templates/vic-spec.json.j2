@@ -1,0 +1,110 @@
+{
+  "DiskProvisioning": "thin",
+  "IPAllocationPolicy": "dhcpPolicy",
+  "IPProtocol": "IPv4",
+  "PropertyMapping": [
+    {
+      "Key": "appliance.root_pwd",
+      "Value": "{{ vic_root_password }}"
+    },
+    {
+      "Key": "appliance.permit_root_login",
+      "Value": "{{ vic_permit_root_login | capitalize }}"
+    },
+    {
+      "Key": "network.ip0",
+      "Value": "{{ vic_network_ip0 }}"
+    },
+    {
+      "Key": "network.netmask0",
+      "Value": "{{ vic_network_netmask0 }}"
+    },
+    {
+      "Key": "network.gateway",
+      "Value": "{{ vic_network_gateway }}"
+    },
+    {
+      "Key": "network.DNS",
+      "Value": "{{ vic_network_dns }}"
+    },
+    {
+      "Key": "network.searchpath",
+      "Value": "{{ vic_network_searchpath }}"
+    },
+    {
+      "Key": "network.fqdn",
+      "Value": "{{ vic_network_fqdn }}"
+    },
+    {
+      "Key": "registry.deploy",
+      "Value": "True"
+    },
+    {
+      "Key": "registry.port",
+      "Value": "{{ vic_registry_port }}"
+    },
+    {
+      "Key": "registry.notary_port",
+      "Value": "{{ vic_registry_notary_port }}"
+    },
+    {
+      "Key": "registry.admin_password",
+      "Value": "{{ vic_registry_admin_password }}"
+    },
+    {
+      "Key": "registry.db_password",
+      "Value": "{{ vic_registry_db_password }}"
+    },
+    {
+      "Key": "registry.gc_enabled",
+      "Value": "{{ vic_registry_gc_enabled | capitalize}}"
+    },
+    {
+      "Key": "registry.ssl_cert",
+      "Value": "{{ vic_registry_ssl_cert }}"
+    },
+    {
+      "Key": "registry.ssl_cert_key",
+      "Value": "{{ vic_registry_ssl_cert_key }}"
+    },
+    {
+      "Key": "management_portal.deploy",
+      "Value": "True"
+    },
+    {
+      "Key": "management_portal.port",
+      "Value": "{{ vic_management_portal_port }}"
+    },
+    {
+      "Key": "management_portal.ssl_cert",
+      "Value": "{{ vic_management_portal_ssl_cert }}"
+    },
+    {
+      "Key": "management_portal.ssl_cert_key",
+      "Value": "{{ vic_management_portal_ssl_cert_key }}"
+    },
+    {
+      "Key": "fileserver.port",
+      "Value": "{{ vic_fileserver_port }}"
+    },
+    {
+      "Key": "fileserver.ssl_cert",
+      "Value": "{{ vic_fileserver_ssl_cert }}"
+    },
+    {
+      "Key": "fileserver.ssl_cert_key",
+      "Value": "{{ vic_fileserver_ssl_cert_key }}"
+    }
+  ],
+  "NetworkMapping": [
+    {
+      "Name": "Network",
+      "Network": "{{ vic_network }}"
+    }
+  ],
+  "Annotation": "Integrated containers engine on vSphere.",
+  "PowerOn": {{ vic_poweron | lower }},
+  "InjectOvfEnv": false,
+  "WaitForIP": false,
+  "Name": null
+}

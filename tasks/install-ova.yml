@@ -1,0 +1,45 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+
+- name: Check that the OVA exists
+  stat:
+    path: "{{ vic_ova_path }}"
+    get_checksum: no
+    get_md5: no
+  register: stat_result
+
+- assert:
+    that: "stat_result.stat.exists == True"
+    msg: "You must provide the vic OVA at {{ vic_ova_path }}"
+
+- include: check-vic-fileserver.yml
+
+- block:
+  - name: Make temp directory
+    file:
+      dest: "{{ vic_tmp }}"
+      state: directory
+  - name: Set OVA options
+    template:
+      src: vic-spec.json.j2
+      dest: "{{ vic_tmp }}/vic.spec.json"
+  - name: Deploy OVA
+    environment:
+      GOVC_DATASTORE: "{{ vic_datastore }}"
+      GOVC_HOST: "{{ mgmt_vc }}"
+      GOVC_URL: "https://{{ mgmt_vc }}/sdk"
+      GOVC_INSECURE: True
+      GOVC_DATACENTER: "{{ mgmt_vc_datacenter }}"
+      GOVC_USERNAME: "{{ mgmt_vc_username }}"
+      GOVC_PASSWORD: "{{ mgmt_vc_password }}"
+      GOVC_CLUSTER: "{{ mgmt_vc_cluster }}"
+    shell: govc import.ova -options="{{ vic_tmp }}/vic.spec.json" "{{ vic_ova_path }}"
+    register: vic_ova_deploy_result
+    ignore_errors: yes
+    changed_when: no
+    failed_when: >
+      vic_ova_deploy_result |failed
+      and "The name 'vic' already exists." not in vic_ova_deploy_result.stderr
+
+  when: ova_fileserver_output |failed and vic_version not in ova_fileserver_output.content

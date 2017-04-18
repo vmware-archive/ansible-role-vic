@@ -10,20 +10,29 @@ galaxy_info:
 
   platforms:
 
-  - name: Photon Linux
+  - name: GenericLinux
     versions:
-    - 1.0
+    - any
 
-#  - name: Fedora
-#    versions:
-#    - 24
-#    - 25
-#  - name: CentOS
-#    versions:
-#    - 7
-#  - name: Ubuntu
-#    versions:
-#    - all
-#  - name: opensuse
-#    versions:
-#    - 42.2
+  - name: Fedora
+    versions:
+    - 24
+
+  - name: EL
+    versions:
+    - 7
+
+  - name: Ubuntu
+    versions:
+    - trusty
+    - precise
+    - xenial
+
+dependencies:
+  - role: govc
+#    assets:
+#      "vic.ova":
+#        description: vic OVA
+#        checksum: "{{ vic_md5sum }}"
+#        url: "{{ vic_ova_url }}"
+#        validate_certs: False

@@ -1,0 +1,13 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+
+- name: Remove install dir
+  file:
+    dest: "{{ vic_install_path }}/vic"
+    state: absent
+
+- name: Remove link to vic-machine
+  file:
+    dest: /bin/{{ vic_machine_bin }}
+    state: absent

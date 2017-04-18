@@ -2,15 +2,21 @@
 # SPDX-License-Identifier: MIT
 ---
 
-- name: ensure awk is installed
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - openssl
-    - gawk
+# set os specific vic-machine vars
+- include_vars: "{{ ansible_system | lower }}.yml"
 
-- include: install.yml
+- name: Register the current vic-machine version (if any)
+  command: "{{ vic_machine_bin }} version"
+  ignore_errors: yes
+  register: vic_version_found
+  changed_when: false
+
+- debug: var=vic_version_found
+
+- include: install-ova.yml
+  when: vic_version != "remove"
+
+- include: install-vic-engine.yml
   when: vic_version != "remove"
 
 - include: vic-create.yml
@@ -19,5 +25,5 @@
 #- include: vic-delete.yml
 #  when: vic_vch_delete
 
-- include: uninstall.yml
+- include: uninstall-vic-engine.yml
   when: vic_version == "remove"
