@@ -1,0 +1,62 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+- hosts: all
+  roles:
+    - role: vic
+  vars:
+    vic_controller_hosts:
+      - name: test1
+        timeout: 5m
+        target: https://192.168.1.9/Goddard
+        user: administrator@home.local
+        password: 'some_password'
+        tls-cname: test1.home.local
+        image-store: esx-a-ssd
+        bridge-network: bridge-vic1
+        compute-resource: BasementLab
+        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        bridge-network-range: 172.16.0.0/12
+        management-network: Management
+        management-network-gateway: 0.0.0.0/0:192.168.1.254
+        management-network-ip: 192.168.1.19/24
+        dns-server: 192.168.1.1
+        public-network: VMNet
+        organization: tscanlan
+        volume-store: "esx-a-ssd/test1-volumes:default"
+      - name: test2
+        timeout: 5m
+        target: https://192.168.1.9/Goddard
+        user: administrator@home.local
+        password: 'some_password'
+        tls-cname: test2.home.local
+        image-store: esx-a-ssd
+        bridge-network: bridge-vic2
+        compute-resource: BasementLab
+        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        bridge-network-range: 172.16.0.0/12
+        management-network: Management
+        management-network-gateway: 0.0.0.0/0:192.168.1.254
+        management-network-ip: 192.168.1.20/24
+        dns-server: 192.168.1.1
+        public-network: VMNet
+        organization: tscanlan
+        volume-store: "esx-a-ssd/test2-volumes:default"
+      - name: test3
+        timeout: 5m
+        target: https://192.168.1.9/Goddard
+        user: administrator@home.local
+        password: 'some_password'
+        tls-cname: test3.home.local
+        image-store: esx-a-ssd
+        bridge-network: bridge-vic3
+        compute-resource: BasementLab
+        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+        bridge-network-range: 172.16.0.0/12
+        management-network: Management
+        management-network-gateway: 0.0.0.0/0:192.168.1.254
+        management-network-ip: 192.168.1.21/24
+        dns-server: 192.168.1.1
+        public-network: VMNet
+        organization: tscanlan
+        volume-store: "esx-a-ssd/test3-volumes:default"

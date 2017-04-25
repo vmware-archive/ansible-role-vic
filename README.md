@@ -30,7 +30,9 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+Copyright © 2017 VMware, Inc. All Rights Reserved.
+SPDX-License-Identifier: MIT
+
 
 Author Information
 ------------------

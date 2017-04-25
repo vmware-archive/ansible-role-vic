@@ -1,14 +1,26 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
 ---
 dependency:
   name: galaxy
+ansible:
+  verbose: False
+  playbook: "${MOLECULE_PLAYBOOK}"
+  raw_env_vars:
+    ANSIBLE_ROLES_PATH: ../:../../
 driver:
   name: docker
 docker:
   containers:
-    - name: vic
-      image: ubuntu
+    - name: photon
+      image: photon
       image_version: latest
-      ansible_groups:
-        - group1
-verifier:
-  name: testinfra
+      dockerfile: tests/dockerfiles/photon-latest
+      privileged: true
+      volume_mounts:
+        - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+
+    - name: ubuntu-xenial
+      image: ubuntu
+      image_version: '16.04'
+      command: /lib/systemd/systemd

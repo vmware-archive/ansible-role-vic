@@ -1,0 +1,1 @@
+vic-machine create {% for key in item.item %} --{{ key }} "{{ item.item[key]}}"{% endfor %}

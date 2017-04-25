@@ -1,2 +1,18 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
 ---
 # defaults file for vic
+
+vic_version: "1.1.0"
+vic_install_path: /opt
+vic_download_url: "https://bintray.com/vmware/vic/download_file?file_path=vic_{{ vic_version }}.tar.gz"
+vic_tmp: /tmp
+
+# validate certs for the url we download vic from?
+vic_download_validate_certs: False
+# {{ ansible_system|lower }}
+
+vic_controller_hosts: []
+
+# if this is set, delete vch that exist but are not in our vic_controller_hosts list
+vic_vch_delete: False
