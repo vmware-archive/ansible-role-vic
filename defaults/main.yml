@@ -21,7 +21,7 @@ vic_download_validate_certs: False
 
 # List of of vic hosts create
 # each key/value pair will be passed to the vic-machine create as-is, so
-# any configuration supported by (vic-machine)[https://github.com/vmware/vic/blob/master/doc/user/usage.md]
+# any configuration supported by [vic-machine](https://github.com/vmware/vic/blob/master/doc/user/usage.md)
 # should be supported here
 # Example:
 # vic_controller_hosts:
@@ -47,7 +47,7 @@ vic_controller_hosts: []
 
 # List of of vic hosts delete
 # each key/value pair will be passed to the vic-machine create as-is, so
-# any configuration supported by (vic-machine delete)[https://github.com/vmware/vic/blob/master/doc/user/usage.md#deleting-a-virtual-container-host]
+# any configuration supported by  [vic-machine delete](https://github.com/vmware/vic/blob/master/doc/user/usage.md#deleting-a-virtual-container-host)
 # should be supported here
 # Example:
 # vic_controller_hosts_delete:
