@@ -66,18 +66,11 @@ git push --force-with-lease origin my-new-feature
 Be sure to add a comment to the PR indicating your new changes are ready to review, as GitHub does not generate a
 notification when you git push.
 
-<<<<<<< HEAD
 ### Code Style
 
 ### Formatting Commit Messages
 
 We follow the conventions on [How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/).
-=======
-### Formatting Commit Messages
-
-We follow the conventions on
-[How to Write a Git Commit Message](http://chris.beams.io/posts/git-commit/).
->>>>>>> 4875919... Initial commit
 
 Be sure to include any related GitHub issue references in the commit message.  See
 [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) for referencing issues
@@ -86,8 +79,3 @@ and commits.
 ## Reporting Bugs and Creating Issues
 
 When opening a new issue, try to roughly follow the commit message format conventions above.
-<<<<<<< HEAD
-
-## Repository Structure
-=======
->>>>>>> 4875919... Initial commit
