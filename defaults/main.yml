@@ -3,16 +3,59 @@
 ---
 # defaults file for vic
 
+# specific version of VIC to install and run
 vic_version: "1.1.0"
+
+# Where VIC files will be installed
 vic_install_path: /opt
+
+# generally shouldn't need to update this,
+# any VIC version found at this version ought to be usabe
 vic_download_url: "https://bintray.com/vmware/vic/download_file?file_path=vic_{{ vic_version }}.tar.gz"
+
+# Temporary storage for downloads
 vic_tmp: /tmp
 
 # validate certs for the url we download vic from?
 vic_download_validate_certs: False
-# {{ ansible_system|lower }}
 
+# List of of vic hosts create
+# each key/value pair will be passed to the vic-machine create as-is, so
+# any configuration supported by (vic-machine)[https://github.com/vmware/vic/blob/master/doc/user/usage.md]
+# should be supported here
+# Example:
+# vic_controller_hosts:
+#    - name: test1
+#      timeout: 5m
+#      target: https://vcenter.corp.local/Goddard
+#      user: administrator@home.local
+#      password: 'some_password'
+#      tls-cname: test1.home.local
+#      image-store: esx-a-ssd
+#      bridge-network: bridge-vic1
+#      compute-resource: BasementLab
+#      thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+#      bridge-network-range: 172.16.0.0/12
+#      management-network: Management
+#      management-network-gateway: 0.0.0.0/0:192.168.1.254
+#      management-network-ip: 192.168.1.19/24
+#      dns-server: 192.168.1.1
+#      public-network: VMNet
+#      organization: tscanlan
+#      volume-store: "esx-a-ssd/test1-volumes:default"
 vic_controller_hosts: []
 
-# if this is set, delete vch that exist but are not in our vic_controller_hosts list
-vic_vch_delete: False
+# List of of vic hosts delete
+# each key/value pair will be passed to the vic-machine create as-is, so
+# any configuration supported by (vic-machine delete)[https://github.com/vmware/vic/blob/master/doc/user/usage.md#deleting-a-virtual-container-host]
+# should be supported here
+# Example:
+# vic_controller_hosts_delete:
+#  - name: test3
+#    timeout: 5m
+#    target: https://vcenter.corp.local/Goddard
+#    user: administrator@home.local
+#    password: 'some_password'
+#    thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
+
+vic_controller_hosts_delete: []
