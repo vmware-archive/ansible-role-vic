@@ -1,0 +1,15 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+- hosts: all
+  roles:
+    - role: vic
+  vars:
+    vic_vch_delete: True
+    vic_controller_hosts:
+      - name: test3
+        timeout: 5m
+        target: https://192.168.1.9/Goddard
+        user: administrator@home.local
+        password: 'some_password'
+        thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"

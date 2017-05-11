@@ -1,0 +1,17 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+sudo: required
+language: python
+services:
+  - docker
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+install:
+  - pip install molecule
+  - pip install docker
+script:
+  - >
+    sed -i.orig 's;  playbook.*;  playbook: tests/travis-playbook.yml;' molecule.yml
+  - molecule test

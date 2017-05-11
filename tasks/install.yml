@@ -1,0 +1,42 @@
+# Copyright © 2017 VMware, Inc. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+---
+
+- name: Register the current vic-machine version (if any)
+  command: vic-machine version
+  ignore_errors: yes
+  register: vic_version_found
+  changed_when: false
+
+#- debug: msg="{{ vic_version_found }}"
+
+- block:
+
+  - name: Download release archive to ansible host
+    get_url:
+      url: "{{vic_download_url}}"
+      dest: "{{vic_tmp}}/vic-{{ vic_version }}.tar.gz"
+      validate_certs: "{{ vic_download_validate_certs }}"
+    delegate_to: localhost
+    become: no
+
+  - name: Ensure install root exists
+    file:
+      dest: "{{ vic_install_path }}"
+      state: directory
+      recurse: yes
+
+  - name: Push binary to hosts and extract
+    unarchive:
+      src: "{{vic_tmp}}/vic-{{ vic_version }}.tar.gz"
+      dest: "{{ vic_install_path }}"
+      remote_src: False
+
+
+  - name: Link vic-machine into place
+    file:
+      src: "{{ vic_install_path }}/vic/vic-machine-{{ ansible_system|lower }}"
+      dest: /bin/vic-machine
+      state: link
+
+  when: "vic_version_found|failed or vic_version not in vic_version_found.stdout"
