@@ -83,7 +83,7 @@ vic_controller_hosts_delete:
     thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
 ```
 
-##Example Playbook
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
