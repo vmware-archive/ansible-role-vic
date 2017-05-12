@@ -1,0 +1,40 @@
+---
+
+# Check the file server url on the vic machine.
+# If the url is responsive, we'll avoid installing the ova
+# Also, output a couple notices if we're attempting to
+# install on an existing vic server, and if the current server is
+# already at the right version.
+
+- name: Get existing OVA version
+  uri:
+    url: "{{ vic_fileserver_url }}"
+    return_content: yes
+    validate_certs: no
+    timeout: 5
+  ignore_errors: yes
+  register: ova_fileserver_output
+
+# if the vic server is hosting vic-machine, use the server
+# as the download url
+- name: Point at local fileserver for vic-engine
+  set_fact:
+    vic_download_url: "{{ vic_fileserver_url }}/{{ vic_tarball_name }}"
+  when: ova_fileserver_output | succeeded
+
+
+#- debug: var=ova_fileserver_output
+
+- name: Is VIC file server running?
+  debug:
+    msg: >
+      {{ vic_network_ip0 | default( vic_network_fqdn ) }}
+      seems to be running a VIC fileserver.
+  when: ova_fileserver_output | succeeded
+
+- name: Is VIC serving our version?
+  debug:
+    msg: >
+      {{ vic_network_ip0 | default( vic_network_fqdn ) }}
+      seems to be running the same version of VIC you are trying to install.
+  when: vic_version in ova_fileserver_output.content

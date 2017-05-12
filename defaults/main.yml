@@ -5,16 +5,19 @@
 
 # specific version of VIC to install and run
 vic_version: "1.1.0"
+vic_tarball_name: vic_{{ vic_version }}.tar.gz
 
 # Where VIC files will be installed
 vic_install_path: /opt
 
 # generally shouldn't need to update this,
 # any VIC version found at this version ought to be usabe
-vic_download_url: "https://bintray.com/vmware/vic/download_file?file_path=vic_{{ vic_version }}.tar.gz"
+vic_download_url: "https://bintray.com/vmware/vic/download_file?file_path={{ vic_tarball_name }}"
+
+vic_ova_path: /tmp/vic.ova
 
 # Temporary storage for downloads
-vic_tmp: /tmp
+vic_tmp: /tmp/vic
 
 # validate certs for the url we download vic from?
 vic_download_validate_certs: False
@@ -59,3 +62,33 @@ vic_controller_hosts: []
 #    thumbprint: "29:03:72:8B:73:ED:D8:B6:D7:36:E8:EE:4F:1D:91:DE:9A:2C:3D:4A"
 
 vic_controller_hosts_delete: []
+
+vic_network_fqdn: localhost.localdomain
+vic_network_searchpath:
+vic_network_dns:
+vic_network_gateway:
+vic_network_netmask0:
+vic_network_ip0:
+vic_permit_root_login: False
+vic_root_password: this_is_a_bad_password
+
+vic_poweron: True
+
+vic_registry_port: 443
+vic_registry_notary_port: 4443
+vic_registry_ssl_cert:
+vic_registry_ssl_cert_key:
+vic_registry_gc_enabled: False
+vic_registry_db_password: this_is_a_bad_password
+vic_registry_admin_password: this_is_a_bad_password
+
+
+vic_management_portal_port: 8282
+vic_management_portal_ssl_cert:
+vic_management_portal_ssl_cert_key:
+
+vic_fileserver_port: 9443
+vic_fileserver_ssl_cert:
+vic_fileserver_ssl_cert_key:
+
+vic_fileserver_url: "https://{{ vic_network_ip0 | default( vic_network_fqdn ) }}:{{ vic_fileserver_port }}"

@@ -1,10 +1,22 @@
 # ansible-role-vic
 
-Install and manage [vSphere Integrated Containers](https://github.com/vmware/vic/)
+Install and manage [vSphere Integrated Containers](https://github.com/vmware/vic-product)
 
-## Requirements
+VIC has 3 components:
 
-Currently only runs on linux hosts, though the vic-machine binaries can support OSX and Windows
+* [vic-engine](https://github.com/vmware/vic) support only runs on linux hosts, though the vic-machine binaries can support OSX and Windows
+* [harbor](https://github.com/vmware/harbor) not yet supported
+* [admiral](https://github.com/vmware/admiral) not yet supported
+
+## Requirements:
+
+This rolle only runs on linux hosts, though the vic-machine binaries can support OSX and Windows
+
+vic-engine requires the following installed:
+- openssl
+- awk, mawk, or gawk
+
+The vic OVA must already be local to the machine you are running the role against.
 
 ## Role Variables
 
@@ -111,7 +123,7 @@ Including an example of how to use your role (for instance, with variables passe
         public-network: VMNet
         organization: tscanlan
         volume-store: "esx-a-ssd/test1-volumes:default"
-       
+
 ```
 
 ## License

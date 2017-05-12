@@ -1,1 +1,1 @@
-vic-machine ls {% for key in ['target', 'user', 'password', 'thumbprint'] %} --{{ key }} "{{ item[key]}}"{% endfor %} | awk '/^ID/{found=1; next;} { if (found) { print $3; } }'
+{{ vic_machine_bin }} ls {% for key in ['target', 'user', 'password', 'thumbprint'] %} --{{ key }} "{{ item[key]}}"{% endfor %} | awk '/^ID/{found=1; next;} { if (found) { print $3; } }'

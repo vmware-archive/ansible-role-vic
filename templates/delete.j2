@@ -1,1 +1,1 @@
-vic-machine delete {% for key in ['target', 'user', 'password', 'thumbprint'] %} --{{ key }} "{{ item[key]}}"{% endfor %}
+{{ vic_machine_bin }} delete {% for key in ['target', 'user', 'password', 'thumbprint'] %} --{{ key }} "{{ item[key]}}"{% endfor %}
