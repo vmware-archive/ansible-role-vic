@@ -28,3 +28,5 @@
 
 - include: uninstall-vic-engine.yml
   when: vic_version == "remove"
+
+- include: services-up.yml
