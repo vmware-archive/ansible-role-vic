@@ -9,9 +9,10 @@
     get_md5: no
   register: stat_result
 
-- assert:
-    that: "stat_result.stat.exists == True"
-    msg: "You must provide the vic OVA at {{ vic_ova_path }}"
+#- name: Fail early when OVA is missing
+#  assert:
+#    that: "stat_result.stat.exists == True"
+#    msg: "You must provide the vic OVA at {{ vic_ova_path }}"
 
 - include: check-vic-fileserver.yml
 
@@ -41,5 +42,10 @@
     failed_when: >
       vic_ova_deploy_result |failed
       and "The name 'vic' already exists." not in vic_ova_deploy_result.stderr
+    tags:
+      - skip_ansible_lint
 
-  when: ova_fileserver_output |failed and vic_version not in ova_fileserver_output.content
+  when: >
+    ova_fileserver_output |failed
+    and vic_version not in ova_fileserver_output.content
+    and stat_result.stat.exists == True

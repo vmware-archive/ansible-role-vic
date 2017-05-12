@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: MIT
 ---
 
-# set os specific vic-machine vars
-- include_vars: "{{ ansible_system | lower }}.yml"
+
+- name: Include OS specific vars
+  include_vars: "{{ ansible_system | lower }}.yml"
 
 - name: Register the current vic-machine version (if any)
   command: "{{ vic_machine_bin }} version"
@@ -11,7 +12,7 @@
   register: vic_version_found
   changed_when: false
 
-- debug: var=vic_version_found
+#- debug: var=vic_version_found
 
 - include: install-ova.yml
   when: vic_version != "remove"

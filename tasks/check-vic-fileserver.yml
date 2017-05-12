@@ -17,20 +17,23 @@
 
 # if the vic server is hosting vic-machine, use the server
 # as the download url
-- set_fact:
+- name: Point at local fileserver for vic-engine
+  set_fact:
     vic_download_url: "{{ vic_fileserver_url }}/{{ vic_tarball_name }}"
   when: ova_fileserver_output | succeeded
 
 
-- debug: var=ova_fileserver_output
+#- debug: var=ova_fileserver_output
 
-- debug:
+- name: Is VIC file server running?
+  debug:
     msg: >
       {{ vic_network_ip0 | default( vic_network_fqdn ) }}
       seems to be running a VIC fileserver.
   when: ova_fileserver_output | succeeded
 
-- debug:
+- name: Is VIC serving our version?
+  debug:
     msg: >
       {{ vic_network_ip0 | default( vic_network_fqdn ) }}
       seems to be running the same version of VIC you are trying to install.
