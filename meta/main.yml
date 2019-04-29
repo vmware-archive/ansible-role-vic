@@ -1,11 +1,11 @@
 # Copyright © 2017 VMware, Inc. All Rights Reserved.
-# SPDX-License-Identifier: MIT
-
+# SPDX-License-Identifier: MIT OR GPL-3.0-only
+---
 galaxy_info:
   author: Tom Scanlan
   description: Install and manage vSphere Integrated Containers
   company: VMware Inc.
-  license: MIT
+  license: license (MIT, GPLv3)
   min_ansible_version: 2.0
 
   platforms:

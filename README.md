@@ -183,7 +183,7 @@ Including an example of how to use your role (for instance, with variables passe
 ## License
 
 Copyright © 2017 VMware, Inc. All Rights Reserved.
-SPDX-License-Identifier: MIT
+SPDX-License-Identifier: MIT OR GPL-3.0-only
 
 
 ## Author Information
